@@ -1,5 +1,9 @@
 name: 'protoc with php plugin'
 description: 'provides a protoc installation with the php gen plugin compiled from source.'
+author: 'oa'
+branding:
+  icon: 'package'
+  color: 'purple'
 inputs:
   php-out:
     description: 'directory to generate the protobuf files to'
