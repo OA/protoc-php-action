@@ -1,23 +1,41 @@
-# todo: automate build and push process
-FROM ubuntu:24.04
+FROM alpine:3.20.1 AS base
 
-RUN apt-get update && apt-get install -y build-essential git cmake php
+RUN apk update && apk add libstdc++ libgcc
 
-RUN git clone --recursive --depth=1 -b v1.65.0 https://github.com/grpc/grpc
+FROM alpine:3.20.1 AS build
 
-RUN cd grpc && \
-    mkdir -p cmake/build && \
+RUN apk update && apk add git
+
+WORKDIR /
+
+RUN git clone --recursive --depth=1 --shallow-submodules --jobs 5 -b v1.65.1 https://github.com/grpc/grpc
+
+RUN apk add alpine-sdk cmake linux-headers
+
+WORKDIR /grpc
+
+RUN mkdir -p cmake/build && \
     cd cmake/build && \
     cmake ../.. && \
     make protoc grpc_php_plugin && \
     mv grpc_php_plugin /usr/local/bin/ && \
-    mv "$(readlink -f third_party/protobuf/protoc)" /usr/local/bin/protoc && \
-    cd ../../../ && \
-    rm -rf grpc && \
-    apt-get clean && \
-    rm -r /var/lib/apt/lists/*
+    mv "$(readlink -f third_party/protobuf/protoc)" /usr/local/bin/protoc
+
+FROM base
+
+LABEL org.opencontainers.image.authors="oa"
+LABEL org.opencontainers.image.vendor="oa"
+LABEL org.opencontainers.image.source=https://github.com/OA/protoc-php-action
+LABEL org.opencontainers.image.documentation="https://github.com/OA/protoc-php-action/blob/main/README.md"
+LABEL org.opencontainers.image.title="protoc with php plugin"
+LABEL org.opencontainers.image.description="docker image for generating php code from proto files using protoc and grpc_php_plugin"
+LABEL org.opencontainers.image.licenses=MIT
+
+COPY --from=build /usr/local/bin/grpc_php_plugin /usr/local/bin/grpc_php_plugin
+COPY --from=build /usr/local/bin/protoc /usr/local/bin/protoc
+
+WORKDIR /src
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

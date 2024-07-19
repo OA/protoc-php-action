@@ -1,22 +1,19 @@
-name: 'Protoc with PHP plugin'
-description: 'Provides a protoc installation with the PHP gen plugin compiled from source.'
+name: 'protoc with php plugin'
+description: 'provides a protoc installation with the PHP gen plugin compiled from source.'
 inputs:
   php-out:
-    description: 'Directory to generate the protobuf files to'
+    description: 'directory to generate the protobuf files to'
     required: true
   grpc-out:
-    description: 'Directory to generate the grpc files to'
+    description: 'directory to generate the grpc files to'
     required: true
   proto-file-directory:
-    description: 'Directory containing the proto files'
+    description: 'directory containing the proto files'
     required: true
-outputs:
-  time:
-    description: 'The time we greeted you'
 runs:
   using: 'docker'
   # todo: update before each release
-  image: 'docker://ghcr.io/oa/protoc-php-action:0.1.0'
+  image: 'docker://ghcr.io/oa/protoc-php-action:0.2.0'
   args:
     - ${{ inputs.php-out }}
     - ${{ inputs.grpc-out }}
