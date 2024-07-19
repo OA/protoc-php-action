@@ -5,7 +5,7 @@ This action runs the protoc compiler with the PHP plugin.
 ## example usage
 
 ```yaml
-name: Build
+name: build
 
 on:
   release:
