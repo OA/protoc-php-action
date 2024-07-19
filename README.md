@@ -1,6 +1,6 @@
 # protoc php action
 
-This action runs the protoc compiler with the PHP plugin.
+this action runs the protoc compiler with the php plugin.
 
 ## example usage
 
