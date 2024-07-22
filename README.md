@@ -4,6 +4,8 @@ this action runs the protoc compiler with the php plugin.
 
 ## example usage
 
+### github action
+
 ```yaml
 name: build
 
@@ -37,4 +39,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ${{ env.ARTIFACT_NAME }}
+```
+
+### docker run
+
+```shell
+docker run --rm -v $(pwd):/project ghcr.io/oa/protoc-php-action:0.2.0 client/target client/target proto
 ```

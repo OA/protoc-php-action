@@ -4,7 +4,7 @@ RUN apk update && apk add libstdc++ libgcc
 
 FROM alpine:3.20.1 AS build
 
-RUN apk update && apk add git
+RUN apk add git
 
 WORKDIR /
 
@@ -25,16 +25,16 @@ FROM base
 
 LABEL org.opencontainers.image.authors="oa"
 LABEL org.opencontainers.image.vendor="oa"
-LABEL org.opencontainers.image.source=https://github.com/OA/protoc-php-action
+LABEL org.opencontainers.image.source="https://github.com/OA/protoc-php-action"
 LABEL org.opencontainers.image.documentation="https://github.com/OA/protoc-php-action/blob/main/README.md"
 LABEL org.opencontainers.image.title="protoc with php plugin"
 LABEL org.opencontainers.image.description="docker image for generating php code from proto files using protoc and grpc_php_plugin"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.licenses="MIT"
 
 COPY --from=build /usr/local/bin/grpc_php_plugin /usr/local/bin/grpc_php_plugin
 COPY --from=build /usr/local/bin/protoc /usr/local/bin/protoc
 
-WORKDIR /src
+WORKDIR /project
 
 COPY entrypoint.sh /entrypoint.sh
 
