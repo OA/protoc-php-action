@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: compile proto files
-        uses: oa/protoc-php-action@0.2.0
+        uses: oa/protoc-php-action@0.2.2
         with:
           php-out: client/target
           grpc-out: client/target
