@@ -1,6 +1,6 @@
 FROM alpine:3.20.1 AS base
 
-RUN apk update && apk add libstdc++ libgcc
+RUN apk add --no-cache libstdc++ libgcc
 
 FROM alpine:3.20.1 AS build
 

@@ -42,7 +42,7 @@ jobs:
 
       - name: repository name to lowercase
         run: |
-          echo "LOWERCASE_REPOSITORY_NAME=${IMAGE_NAME@L}" >> "${GITHUB_ENV}"
+          echo "LOWERCASE_REPOSITORY_NAME=${REGISTRY}/${IMAGE_NAME@L}" >> "${GITHUB_ENV}"
 
       - name: build and push docker image
         id: push
