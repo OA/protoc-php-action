@@ -7,7 +7,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  REPOSITORY_NAME: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
 jobs:
   build-and-push-image:
@@ -43,7 +42,7 @@ jobs:
 
       - name: repository name to lowercase
         run: |
-          echo "LOWERCASE_REPOSITORY_NAME=${REPOSITORY_NAME@L}" >> "${GITHUB_ENV}"
+          echo "LOWERCASE_REPOSITORY_NAME=${IMAGE_NAME@L}" >> "${GITHUB_ENV}"
 
       - name: build and push docker image
         id: push
