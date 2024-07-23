@@ -44,5 +44,5 @@ jobs:
 ### docker run
 
 ```shell
-docker run --rm -v $(pwd):/project ghcr.io/oa/protoc-php-action:0.2.0 client/target client/target proto
+docker run --rm -v $(pwd):/project ghcr.io/oa/protoc-php-action:0.2.2 client/target client/target proto
 ```

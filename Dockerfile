@@ -10,7 +10,7 @@ WORKDIR /
 
 RUN git clone --recursive --depth=1 --shallow-submodules --jobs 5 -b v1.65.1 https://github.com/grpc/grpc
 
-RUN apk add alpine-sdk cmake linux-headers
+RUN apk add --no-cache alpine-sdk linux-headers cmake
 
 WORKDIR /grpc
 
